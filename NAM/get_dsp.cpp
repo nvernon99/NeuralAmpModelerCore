@@ -172,12 +172,4 @@ std::unique_ptr<DSP> get_dsp(dspData& conf)
   return out;
 }
 
-double get_sample_rate_from_nam_file(const nlohmann::json& j)
-{
-  if (j.find("sample_rate") != j.end())
-    return j["sample_rate"];
-  else
-    return -1.0;
-}
-
 }; // namespace nam

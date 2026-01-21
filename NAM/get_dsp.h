@@ -3,6 +3,7 @@
 #include <fstream>
 
 #include "dsp.h"
+#include "json.hpp"
 
 namespace nam
 {
@@ -17,5 +18,11 @@ std::unique_ptr<DSP> get_dsp(const std::filesystem::path config_filename, dspDat
 
 // Get sample rate from a .nam file
 // Returns -1 if not known (Really old .nam files)
-double get_sample_rate_from_nam_file(const nlohmann::json& j);
+inline double get_sample_rate_from_nam_file(const nlohmann::json& j)
+{
+  if (j.find("sample_rate") != j.end())
+    return j["sample_rate"];
+  else
+    return -1.0;
+}
 }; // namespace nam
