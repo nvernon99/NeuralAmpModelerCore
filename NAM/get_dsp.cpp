@@ -10,6 +10,7 @@
 #include "convnet.h"
 #include "wavenet.h"
 #include "get_dsp.h"
+#include "activations.h"
 
 namespace nam
 {
@@ -123,6 +124,9 @@ struct OptionalValue
 
 std::unique_ptr<DSP> get_dsp(dspData& conf)
 {
+  // Enable fast tanh for CPU savings
+  nam::activations::Activation::enable_fast_tanh();
+  
   verify_config_version(conf.version);
 
   auto& architecture = conf.architecture;
