@@ -58,6 +58,11 @@ Version ParseVersion(const std::string& versionStr)
 
 void verify_config_version(const std::string versionStr)
 {
+  // 5150 lead/rhythm files. Parsed before semver so "AAM::..." does not throw.
+  // Every other model, including Mayor, still has to be 0.5.x.
+  if (versionStr == "AAM::Parametric::1.0.0")
+    return;
+
   Version version = ParseVersion(versionStr);
   if (version.major != 0 || version.minor != 5)
   {
